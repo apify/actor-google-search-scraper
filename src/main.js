@@ -47,14 +47,13 @@ Apify.main(async () => {
         requestQueue,
         proxyConfiguration,
         maxConcurrency,
-        prepareRequestFunction: ({ request }) => {
+        preNavigationHooks: [async ({ request }) => {
             const parsedUrl = url.parse(request.url, true);
             request.userData.startedAt = new Date();
             log.info(`Querying "${parsedUrl.query.q}" page ${request.userData.page} ...`);
-            return request;
-        },
-        handlePageTimeoutSecs: 60,
-        requestTimeoutSecs: 180,
+        }],
+        handlePageTimeoutSecs: 40,
+        requestTimeoutSecs: 50,
         handlePageFunction: async ({ request, response, body, $ }) => {
             if ($('#recaptcha').length) {
                 throw new Error('Captcha found, retrying...');

@@ -4,5 +4,8 @@
         "describe": "readonly",
         "test": "readonly",
         "expect": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020
     }
 }
